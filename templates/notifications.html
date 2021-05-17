@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="columns is-mobile is-centered">
+    <div class="column is-half">
+        {% for notification in notifications %}
+
+        <!-- コメントの通知 -->
+        {% if notification.notification_type == 2 %}
+        <div class="notification">
+            <a href="{% url 'delete-notification' notification.id %}" class="delete"></a>
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        {% if notification.sender.profile.picture %}
+                        <img src="{{ notification.sender.profile.picture.url }}" alt="Placeholder image">
+                        {% else %}
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                        {% endif %}
+                    </p>
+                </figure>
+
+                <div class="media-content">
+                    <div class="content">
+                        <strong>
+                            {{ notification.sender.profile.first_name }}
+                            {{ notification.sender.profile.last_name }}
+                        </strong>
+                        <small>
+                            <a href="{% url 'profile' notification.sender.username %}">
+                                @{{ notification.sender.username }}
+                            </a>
+                        </small>
+
+                        <br>
+
+                        Commented:
+                        <p>{{ notification.text_preview }}</p>
+                        <strong><small>{{ notification.date|naturaltime }}</small></strong>
+                    </div>
+                </div>
+
+                <!-- ここにコメントした投稿写真を表示したい -->
+                <!-- <div class="media-right">
+                    <figure class="image is-128x128">
+                        <img src="[[ notification.post.picture.url ]]">
+                    </figure>
+                </div> -->
+            </article>
+        </div>
+        {% endif %}
+
+        <!-- フォローの通知 -->
+        {% if notification.notification_type == 3 %}
+        <div class="notification">
+            <a href="{% url 'delete-notification' notification.id %}" class="delete"></a>
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        {% if notification.sender.profile.picture %}
+                        <img src="{{ notification.sender.profile.picture.url }}" alt="Placeholder image">
+                        {% else %}
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                        {% endif %}
+                    </p>
+                </figure>
+
+                <div class="media-content">
+                    <div class="content">
+                        <strong>
+                            {{ notification.sender.profile.first_name }}
+                            {{ notification.sender.profile.last_name }}
+                        </strong>
+                        <small>
+                            <a href="{% url 'profile' notification.sender.username %}">
+                                @{{ notification.sender.username }}
+                            </a>
+                        </small>
+
+                        <br>
+
+                        <p><i class="material-icons">person_add</i> フォローされました</p>
+                        <strong><small>{{ notification.date|naturaltime }}</small></strong>
+                    </div>
+                </div>
+            </article>
+        </div>
+        {% endif %}
+
+        <!-- いいね！の通知 --->
+        {% if notification.notification_type == 1 %}
+        <div class="notification">
+            <a href="{% url 'delete-notification' notification.id %}" class="delete"></a>
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        {% if notification.sender.profile.picture %}
+                            <img src="{{ notification.sender.profile.picture.url }}" alt="Placeholder image">
+                        {% else %}
+                            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                        {% endif %}
+                    </p>
+                </figure>
+
+                <div class="media-content">
+                    <div class="content">
+                        <strong>{{ notification.sender.profile.first_name }} {{ notification.sender.profile.last_name }}</strong>
+                        <a href="{% url 'profile' notification.sender.username %}">
+                            <small>@{{ notification.sender.username }}</small>
+                        </a>
+
+                        <br>
+
+                        <p><i class="material-icons">thumb_up</i> 「いいね！」されました</p>
+                        <strong><small>{{ notification.date|naturaltime }}</small></strong>
+                    </div>
+                </div>
+
+                <!-- ここにいいね！した画像を表示したい -->
+                <!--<div class="media-right">
+                    <figure class="image is-128x128">
+                        <img src="[[ notification.post.file.url ]]">
+                    </figure>
+                </div>-->
+            </article>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

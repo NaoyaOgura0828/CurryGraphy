@@ -1,0 +1,123 @@
+{% load static %}
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CurryGraphy</title>
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  </head>
+  <body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="{% url 'index' %}">
+      <img class="nav-icon" src="{% static 'img/curry-camera.png' %}">
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a href="{% url 'timeline' %}" class="navbar-item">
+        <i class="material-icons">home</i>
+        ホーム
+      </a>
+
+      <a href="{% url 'usersearch' %}" class="navbar-item">
+        <i class="material-icons">explore</i>
+        検索
+      </a>
+
+      <a href="{% url 'show-notifications' %}" class="navbar-item">
+        <i class="material-icons">notifications</i>
+        アクティビティ
+        {% if count_notifications %}
+          <span class="badge">{{ count_notifications }}</span>
+        {% endif %}
+      </a>
+
+      <a href="{% url 'inbox' %}" class="navbar-item">
+        <i class="material-icons">inbox</i>
+        メッセージ
+        {% if directs_count %}
+        <span class="badge">{{ directs_count }}</span>
+        {% endif %}
+      </a>
+
+      <a href="{% url 'profile' request.user %}" class="navbar-item">
+        <i class="material-icons">perm_identity</i>
+        プロフィール - <strong>{{ request.user }}</strong>
+      </a>
+
+      <a href="{% url 'newpost' %}" class="navbar-item">
+        <i style="color: green;" class="material-icons">perm_media</i>
+        <strong>新規投稿</strong>
+      </a>
+
+      <a href="{% url 'newstory' %}" class="navbar-item">
+        <i style="color: green;" class="material-icons">photo_filter</i>
+        <strong>ストーリーズ</strong>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          設定
+        </a>
+
+        <div class="navbar-dropdown">
+          <a href="{% url 'change_password' %}" class="navbar-item">
+            パスワード
+          </a>
+
+          <!-- 問い合わせ(必要に応じて使用) -->
+          <!--<a class="navbar-item">
+            お問い合わせ
+          </a>-->
+
+          <!-- 報告(必要に応じて使用) -->
+          <!--<a class="navbar-item">
+            報告する
+          </a>-->
+
+          <hr class="navbar-divider">
+          <a href="{% url 'logout' %}" class="navbar-item">
+            ログアウト
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </nav>
+
+  {% block banner %}
+  {% endblock %}
+
+  <section class="section">
+    <div class="container">
+
+      {% block content %}
+      {% endblock %}
+
+      {% block pagination %}
+      {% endblock %}
+
+    </div>
+  </section>
+
+  </body>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+  <script src="{% static 'js/slider.js' %}"></script>
+
+</html>

@@ -1,0 +1,90 @@
+{% load static %}
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>登録 | Curry Graphy</title>
+  <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+<section class="section">
+  <div class="container">
+    <div class="columns is-mobile has-text-centered">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="card">
+          <div class="card-content">
+            <form method="post" action="" role="form">
+              {% csrf_token %}
+              <h3 class="title is-3">登録</h3>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <label class="label is-medium">アカウント名</label>
+                  {{ form.username }}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+
+              <div class="field">
+                <p class="control has-icons-left">
+                  <label class="label is-medium">メールアドレス</label>
+                  {{ form.email }}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+
+              <div class="field">
+                <p class="control has-icons-left">
+                  <label class="label is-medium">パスワード</label>
+                  {{ form.password }}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+
+              <div class="field">
+                <p class="control has-icons-left">
+                  <label class="label is-medium">パスワードの確認</label>
+                  {{ form.confirm_password }}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+
+              <div class="row">
+                <div class="col s12">
+                  <span style="color: red; font-weight: bold;">{{ form.errors }}</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <p class="control">
+                  <button type="submit" name="action" class="button is-success">
+                    登録
+                  </button>
+                </p>
+              </div>
+
+              <p class="control">
+                <a href="{% url 'login' %}" class="button is-info">ログインする</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+
+</html>
