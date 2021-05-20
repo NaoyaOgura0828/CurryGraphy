@@ -24,7 +24,7 @@ SECRET_KEY = 'wkpwid&=r9wp2nl9jyr_%66zjgq4fku9*%g%^%-4iijga+t2lg'
 
 
 # セキュリティ警告 : 本番環境でデバッグをオンにして実行しないでください。
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
