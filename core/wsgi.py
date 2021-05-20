@@ -13,7 +13,10 @@ import sys
 from django.core.wsgi import get_wsgi_application
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+# WEBSITE_HOSTNAME が環境変数として定義されている場合は、実行中です。
+# AzureAppService では、 production.py の生産設定を使用する必要があります。
+settings_module = "core.production" if 'WEBSITE_HOSTNAME' in os.environ else 'core.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 sys.path.append('/home/NaoyaOgura/CurryGraphy')
 
