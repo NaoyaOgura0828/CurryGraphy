@@ -89,11 +89,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DB_HOST は、完全なURLではなくサーバー名のみです。
+hostname = os.environ.get('DB_HOST')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'curry_graphy',
-        'USER': os.environ.get('DB_USER'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER') + '@' + hostname,
         'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': '',
         'PORT': '',
