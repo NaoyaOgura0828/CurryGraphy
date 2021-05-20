@@ -20,6 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # セキュリティ警告 : 本番環境で使用される秘密鍵は秘密にしてください。
+SECRET_KEY = 'wkpwid&=r9wp2nl9jyr_%66zjgq4fku9*%g%^%-4iijga+t2lg'
 
 
 # セキュリティ警告 : 本番環境でデバッグをオンにして実行しないでください。
@@ -160,10 +161,10 @@ CELERY_BROKER_URL = 'amqp://localhost:5672'
 
 
 # 本番環境用のセキュリティ設定
-try:
+"""try:
     from .local_settings import *
 except ImportError:
     pass
 
 if not DEBUG:
-    SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = os.environ['SECRET_KEY']"""
