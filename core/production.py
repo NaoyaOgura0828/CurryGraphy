@@ -1,4 +1,4 @@
-from .settings import *
+"""from .settings import *
 import os
 
 
@@ -30,7 +30,7 @@ hostname = os.environ['DB_HOST']
 
 # Postgres database を設定します。 フルユーザー名は username@servername です。
 # DB_HOST 値を使用して構築します。
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ['DB_NAME'],
