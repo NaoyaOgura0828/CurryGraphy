@@ -97,9 +97,9 @@ hostname = os.environ.get('DB_HOST')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER') + '@' + hostname,
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'] + '@' + hostname,
+        'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': '',
         'PORT': '',
     }
