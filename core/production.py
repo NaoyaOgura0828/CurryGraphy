@@ -1,4 +1,4 @@
-"""from .settings import *
+from .settings import *
 import os
 
 
@@ -36,6 +36,6 @@ DATABASES = {
         'NAME': os.environ['DB_NAME'],
         'HOST': hostname + ".postgres.database.azure.com",
         'USER': os.environ['DB_USER'] + "@" + hostname,
-        'PASSWORD': os.environ['DB_PASS']
+        'PASSWORD': os.environ['DB_PASSWORD']
     }
-}"""
+}
