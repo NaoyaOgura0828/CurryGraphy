@@ -101,7 +101,7 @@ DATABASES = {
         'NAME': os.environ['DB_NAME'],
         'HOST': hostname + ".postgres.database.azure.com",
         'USER': os.environ['DB_USER'] + "@" + hostname,
-        'PASSWORD': os.environ['DB_PASSWORD']
+        'PASSWORD': os.environ['DB_PASS']
     }
 }
 
