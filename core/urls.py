@@ -29,7 +29,7 @@ urlpatterns = [
     path('stories/', include('stories.urls')),
     path('notifications/', include('notifications.urls')),
     path('<username>/', user_profile, name='profile'),
-    path('<username>/saved', user_profile_favorites, name='profilefavorites'),
+    path('<username>/saved', user_profile, name='profilefavorites'),
     path('<username>/follow/<option>', follow, name='follow'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\

@@ -20,13 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # セキュリティ警告 : 本番環境で使用される秘密鍵は秘密にしてください。
-SECRET_KEY = 'wkpwid&=r9wp2nl9jyr_%66zjgq4fku9*%g%^%-4iijga+t2lg'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 
 # セキュリティ警告 : 本番環境でデバッグをオンにして実行しないでください。
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'stories',
 
     # Third party apps
-
+    "whitenoise.runserver_nostatic",
 
     # django apps
     'django.contrib.admin',
@@ -97,11 +97,6 @@ hostname = os.environ.get('DB_HOST')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DB_NAME'],
-        'HOST': hostname + ".postgres.database.azure.com",
-        'USER': os.environ['DB_USER'] + "@" + hostname,
-        'PASSWORD': os.environ['DB_PASS']
     }
 }
 
@@ -142,11 +137,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = []
-"""STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]"""
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/static/")
+STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./static/")
+STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 
 MEDIA_URL = '/media/'
