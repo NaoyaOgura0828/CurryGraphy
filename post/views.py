@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.urls import reverse
+from django.views.decorators.csrf import requires_csrf_token
 
 from post.models import Stream, Post, Tag, Likes, PostFileContent
 from post.forms import NewPostForm
@@ -170,3 +171,11 @@ def favorite_define(request, post_id):
 		profile.favorites.add(post)
 
 	return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
+
+
+@requires_csrf_token
+def my_customized_server_error(request, template_name='500.html'):
+	import sys
+	from django.views import debug
+	error_html = debug.technical_500_response(request, *sys.exc_info()).content
+	return HttpResponseServerError(error_html)
