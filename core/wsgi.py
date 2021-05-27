@@ -13,7 +13,8 @@ import sys
 from django.core.wsgi import get_wsgi_application
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+settings_module = "core.settings" if 'WEBSITE_HOSTNAME' in os.environ else 'core.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 sys.path.append('/home/NaoyaOgura/CurryGraphy')
 
