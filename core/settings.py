@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 
 # セキュリティ警告 : 本番環境でデバッグをオンにして実行しないでください。
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['currygraphy.azurewebsites.net']
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'stories',
 
     # Third party apps
-    "whitenoise.runserver_nostatic",
+
 
     # django apps
     'django.contrib.admin',
