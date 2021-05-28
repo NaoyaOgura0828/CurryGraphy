@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # セキュリティ警告 : 本番環境でデバッグをオンにして実行しないでください。
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
+ALLOWED_HOSTS = [os.environ['ALLOWED_HOSTS']] if 'ALLOWED_HOSTS' in os.environ else []
 
 
 # Application definition
