@@ -13,7 +13,7 @@ from pathlib import Path
 import os
 
 # 次のようにプロジェクト内にパスを作成します : BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
 # Quick-start development settings - 本番環境には不適切
@@ -71,7 +71,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
@@ -143,12 +143,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -159,13 +159,3 @@ LOGIN_URL = '/user/login/'
 
 # Celery Broker
 CELERY_BROKER_URL = 'amqp://localhost:5672'
-
-
-# 本番環境用のセキュリティ設定
-"""try:
-    from .local_settings import *
-except ImportError:
-    pass
-
-if not DEBUG:
-    SECRET_KEY = os.environ['SECRET_KEY']"""
