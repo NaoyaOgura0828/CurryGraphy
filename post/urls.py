@@ -4,7 +4,7 @@ from post.views import IndexView, timeline, new_post, post_details, tags_define,
 
 
 urlpatterns = [
-	path('', IndexView.as_view(), name="index"),
+	path('/', IndexView.as_view(), name="index"),
 	path('timeline/', timeline, name='timeline'),
 	path('newpost/', new_post, name='newpost'),
 	path('<uuid:post_id>', post_details, name='postdetails'),
