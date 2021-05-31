@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'CurryGraphy'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_e129d9f1b1284f3e8e6175b3ea840cdf }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_6e5a690688444adb8a1fcb3faf29e390 }}
