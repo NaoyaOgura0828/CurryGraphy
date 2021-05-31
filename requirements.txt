@@ -1,3 +1,4 @@
+pip
 Django==3.2.2
 amqp==5.0.6
 vine==5.0.0
