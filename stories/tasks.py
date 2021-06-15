@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from stories.models import Story, StoryStream
 
 
-# Task to check the stories date
+# ストーリーの日付を確認するタスク
 @shared_task
 def check_stories_date():
 	exp_date = datetime.now() - timedelta(hours=1)
@@ -13,7 +13,7 @@ def check_stories_date():
 	print("Stories updated")
 
 
-# Task to Delete the stories marked as expired by the CheckStoriesDate task
+# check_stories_dateタスクによって期限切れとしてマークされたストーリーを削除するタスク
 @shared_task
 def delete_expired():
 	Story.objects.filter(expired=True).delete()

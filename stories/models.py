@@ -6,7 +6,7 @@ from post.models import Follow
 
 
 def user_directory_path(instance, filename):
-	"""file will be uploaded to MEDIA_ROOT/user_<id>/<filename>"""
+	"""ファイルは MEDIA_ROOT/user_<id>/<filename> にアップロードされます"""
 	return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 

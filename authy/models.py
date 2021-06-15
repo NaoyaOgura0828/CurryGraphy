@@ -20,7 +20,7 @@ def user_directory_path(instance, filename):
 	return profile_pic_name
 
 
-# Create your models here.
+# プロフィールのモデル作成
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 	first_name = models.CharField(max_length=50, null=True, blank=True)

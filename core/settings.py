@@ -89,7 +89,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-# Database
+# データベース
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # DB_HOST は、完全なURLではなくサーバー名のみです。
@@ -106,7 +106,7 @@ DATABASES = {
 }
 
 
-# Password validation
+# パスワードの検証
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# 国際化
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'ja'

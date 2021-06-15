@@ -2,20 +2,19 @@ import os
 
 from celery import Celery
 
-# set the default Django settings module for the 'celery' program.
-# IMPORTANT check the name of your project and replace it here 'yourproject.settings'
+# 'celery' プログラムのデフォルトのDjango設定モジュールを設定します。
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
-# IMPORTANT check the name of your project and replace it here 'yourproject'
 app = Celery('core')
 
-# Using a string here means the worker doesn't have to serialize
-# the configuration object to child processes.
-# - namespace='CELERY' means all celery-related configuration keys
+# ここで文字列を使用することは、ワーカーがシリアル化する必要がないことを意味します
+# 子プロセスに対する構成オブジェクト
+# namespace='CELERY' は、すべてのCelery関連の構成キーを意味します
 #   should have a `CELERY_` prefix.
+# 接頭語として `CELERY_` が必要です。
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-# Load task modules from all registered Django app configs.
+# 登録されているすべてのDjangoアプリ構成からタスクモジュールをロードします。
 app.autodiscover_tasks()
 
 

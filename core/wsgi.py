@@ -1,9 +1,8 @@
 """
-WSGI config for core project.
+core プロジェクトのWSGI構成.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
+WSGI呼び出し可能オブジェクトを 'application' という名前のモジュールレベルの変数として公開します。
+このファイルの詳細については、URLを参照してください。
 https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 """
 

@@ -24,15 +24,15 @@ def user_profile(request, username):
 	else:
 		posts = profile.favorites.all()
 
-	# Profile info box
+	# プロフィール情報
 	posts_count = Post.objects.filter(user=user).count()
 	following_count = Follow.objects.filter(follower=user).count()
 	followers_count = Follow.objects.filter(following=user).count()
 
-	# follow status
+	# follow ステータス
 	follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
 
-	# Pagination
+	# ページネーション
 	paginator = Paginator(posts, 8)
 	page_number = request.GET.get('page')
 	posts_paginator = paginator.get_page(page_number)
@@ -58,12 +58,12 @@ def user_profile_favorites(request, username):
 	
 	posts = profile.favorites.all()
 
-	# Profile info box
+	# プロフィール情報
 	posts_count = Post.objects.filter(user=user).count()
 	following_count = Follow.objects.filter(follower=user).count()
 	followers_count = Follow.objects.filter(following=user).count()
 
-	# Pagination
+	# ページネーション
 	paginator = Paginator(posts, 8)
 	page_number = request.GET.get('page')
 	posts_paginator = paginator.get_page(page_number)
