@@ -10,11 +10,13 @@ from notifications.models import Notification
 
 
 def user_directory_path(instance, filename):
-	"""file will be uploaded to MEDIA_ROOT/user_<id>/<filename>"""
+	"""ユーザーディレクトリのパス定義"""
+	"""ファイルは MEDIA_ROOT/user_<id>/<filename> へアップロードされる。"""
 	return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
 class Tag(models.Model):
+	"""タグモデルの定義"""
 	title = models.CharField(max_length=75, verbose_name='Tag')
 	slug = models.SlugField(null=False, unique=True)
 
@@ -35,11 +37,13 @@ class Tag(models.Model):
 
 
 class PostFileContent(models.Model):
+	"""投稿内容の参照モデル"""
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='content_owner')
 	file = models.FileField(upload_to=user_directory_path)
 
 
 class Post(models.Model):
+	"""投稿モデルの定義"""
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	content = models.ManyToManyField(PostFileContent, related_name='contents')
 	caption = models.TextField(max_length=1500, verbose_name='caption')
@@ -56,10 +60,12 @@ class Post(models.Model):
 
 
 class Follow(models.Model):
+	"""フォローモデルの定義"""
 	follower = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='follower')
 	following = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='following')
 
 	def user_follow(sender, instance, *args, **kwargs):
+		"""フォローの有効化"""
 		follow = instance
 		sender = follow.follower
 		following = follow.following
@@ -67,6 +73,7 @@ class Follow(models.Model):
 		notify.save()
 
 	def user_unfollow(sender, instance, *args, **kwargs):
+		"""フォローの無効化"""
 		follow = instance
 		sender = follow.follower
 		following = follow.following
@@ -76,12 +83,14 @@ class Follow(models.Model):
 
 
 class Stream(models.Model):
+	"""投稿の属性 (post.views.py への関連付け)"""
 	following = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='stream_following')
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
 	date = models.DateTimeField()
 
 	def add_post(sender, instance, *args, **kwargs):
+		"""投稿の追加"""
 		post = instance
 		user = post.user
 		followers = Follow.objects.all().filter(following=user)
@@ -91,10 +100,12 @@ class Stream(models.Model):
 
 
 class Likes(models.Model):
+	"""いいね！モデルの定義"""
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_like')
 
 	def user_liked_post(sender, instance, *args, **kwargs):
+		"""いいね！の有効"""
 		like = instance
 		post = like.post
 		sender = like.user
@@ -102,6 +113,7 @@ class Likes(models.Model):
 		notify.save()
 
 	def user_unlike_post(sender, instance, *args, **kwargs):
+		"""いいね！の無効"""
 		like = instance
 		post = like.post
 		sender = like.user
