@@ -10,6 +10,7 @@ from post.models import Post
 
 
 def user_directory_path(instance, filename):
+	"""ユーザーディレクトリのパス"""
 	"""ファイルは MEDIA_ROOT/user_<id>/<filename> へアップロードされる。"""
 	profile_pic_name = 'user_{0}/profile.jpg'.format(instance.user.id)
 	full_path = os.path.join(settings.MEDIA_ROOT, profile_pic_name)
@@ -21,7 +22,7 @@ def user_directory_path(instance, filename):
 
 
 class Profile(models.Model):
-	"""プロフィールモデルの定義"""
+	"""プロフィールモデル"""
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 	first_name = models.CharField(max_length=50, null=True, blank=True)
 	last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -33,7 +34,7 @@ class Profile(models.Model):
 	picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name='Picture')
 
 	def save(self, *args, **kwargs):
-		"""プロフィールモデルの picture をリサイズする定義"""
+		"""プロフィールモデルの picture をリサイズする"""
 		super().save(*args, **kwargs)
 		size = 250, 250
 
@@ -47,13 +48,13 @@ class Profile(models.Model):
 		
 
 def create_user_profile(sender, instance, created, **kwargs):
-	"""ユーザープロフィールモデルの作成定義"""
+	"""ユーザープロフィールモデルの作成"""
 	if created:
 		Profile.objects.create(user=instance)
 
 
 def save_user_profile(sender, instance, **kwargs):
-	"""ユーザープロフィールモデルの保存定義"""
+	"""ユーザープロフィールモデルの保存"""
 	instance.profile.save()
 
 

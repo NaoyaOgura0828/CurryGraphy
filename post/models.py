@@ -10,13 +10,13 @@ from notifications.models import Notification
 
 
 def user_directory_path(instance, filename):
-	"""ユーザーディレクトリのパス定義"""
+	"""ユーザーディレクトリのパス"""
 	"""ファイルは MEDIA_ROOT/user_<id>/<filename> へアップロードされる。"""
 	return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
 class Tag(models.Model):
-	"""タグモデルの定義"""
+	"""タグモデル"""
 	title = models.CharField(max_length=75, verbose_name='Tag')
 	slug = models.SlugField(null=False, unique=True)
 
@@ -43,7 +43,7 @@ class PostFileContent(models.Model):
 
 
 class Post(models.Model):
-	"""投稿モデルの定義"""
+	"""投稿モデル"""
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	content = models.ManyToManyField(PostFileContent, related_name='contents')
 	caption = models.TextField(max_length=1500, verbose_name='caption')
@@ -60,7 +60,7 @@ class Post(models.Model):
 
 
 class Follow(models.Model):
-	"""フォローモデルの定義"""
+	"""フォローモデル"""
 	follower = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='follower')
 	following = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='following')
 
@@ -100,7 +100,7 @@ class Stream(models.Model):
 
 
 class Likes(models.Model):
-	"""いいね！モデルの定義"""
+	"""いいね！モデル"""
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_like')
 

@@ -19,7 +19,7 @@ class IndexView(generic.TemplateView):
 
 @login_required
 def timeline(request):
-	"""タイムラインの表示定義"""
+	"""タイムラインの表示"""
 	user = request.user
 	posts = Stream.objects.filter(user=user)
 
@@ -44,7 +44,7 @@ def timeline(request):
 
 
 def post_details(request, post_id):
-	"""投稿の表示定義"""
+	"""投稿の表示"""
 	post = get_object_or_404(Post, id=post_id)
 	user = request.user
 	profile = Profile.objects.get(user=user)
@@ -87,7 +87,7 @@ def post_details(request, post_id):
 
 @login_required
 def new_post(request):
-	"""新規投稿の表示定義"""
+	"""新規投稿の表示"""
 	user = request.user
 	tags_objs = []
 	files_objs = []
@@ -126,7 +126,7 @@ def new_post(request):
 
 
 def tags_define(request, tag_slug):
-	"""タグの表示定義"""
+	"""タグの表示"""
 	tag = get_object_or_404(Tag, slug=tag_slug)
 	posts = Post.objects.filter(tags=tag).order_by('-posted')
 
@@ -142,7 +142,7 @@ def tags_define(request, tag_slug):
 
 @login_required
 def like_define(request, post_id):
-	"""いいね！の表示定義"""
+	"""いいね！の表示"""
 	user = request.user
 	post = Post.objects.get(id=post_id)
 	current_likes = post.likes
@@ -164,7 +164,7 @@ def like_define(request, post_id):
 
 @login_required
 def favorite_define(request, post_id):
-	"""お気に入りの表示定義"""
+	"""お気に入りの表示"""
 	user = request.user
 	post = Post.objects.get(id=post_id)
 	profile = Profile.objects.get(user=user)
