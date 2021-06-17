@@ -14,6 +14,7 @@ from post.models import Post, Follow, Stream
 
 
 def user_profile(request, username):
+	"""自分のプロフィールページの表示"""
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)
 	url_name = resolve(request.path).url_name
@@ -53,6 +54,7 @@ def user_profile(request, username):
 
 
 def user_profile_favorites(request, username):
+	"""他ユーザーのプロフィールページの表示"""
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)
 	
@@ -82,6 +84,7 @@ def user_profile_favorites(request, username):
 
 
 def signup(request):
+	"""サインアップの表示"""
 	if request.method == 'POST':
 		form = SignupForm(request.POST)
 		if form.is_valid():
@@ -102,6 +105,7 @@ def signup(request):
 
 @login_required
 def password_change(request):
+	"""パスワード変更の表示"""
 	user = request.user
 	if request.method == 'POST':
 		form = ChangePasswordForm(request.POST)
@@ -122,11 +126,13 @@ def password_change(request):
 
 
 def password_change_done(request):
+	"""パスワード変更完了の表示"""
 	return render(request, 'change_password_done.html')
 
 
 @login_required
 def edit_profile(request):
+	"""プロフィール編集の表示"""
 	user = request.user.id
 	profile = Profile.objects.get(user__id=user)
 	base_width = 400
@@ -154,6 +160,7 @@ def edit_profile(request):
 
 @login_required
 def follow(request, username, option):
+	"""フォローの表示"""
 	following = get_object_or_404(User, username=username)
 
 	try:
