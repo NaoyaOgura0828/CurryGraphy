@@ -10,7 +10,7 @@ from post.models import Post
 
 
 def user_directory_path(instance, filename):
-	"""file will be uploaded to MEDIA_ROOT/user_<id>/<filename>"""
+	"""ファイルは MEDIA_ROOT/user_<id>/<filename> へアップロードされる。"""
 	profile_pic_name = 'user_{0}/profile.jpg'.format(instance.user.id)
 	full_path = os.path.join(settings.MEDIA_ROOT, profile_pic_name)
 
@@ -20,8 +20,8 @@ def user_directory_path(instance, filename):
 	return profile_pic_name
 
 
-# プロフィールのモデル作成
 class Profile(models.Model):
+	"""プロフィールモデルの定義"""
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 	first_name = models.CharField(max_length=50, null=True, blank=True)
 	last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -33,11 +33,12 @@ class Profile(models.Model):
 	picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name='Picture')
 
 	def save(self, *args, **kwargs):
+		"""プロフィールモデルの picture をリサイズする定義"""
 		super().save(*args, **kwargs)
 		size = 250, 250
 
 		if self.picture:
-			pic = Image.open(self.picture.path).convert('RGB')
+			pic = Image.open(self.picture.path).convert('RGB')  # RGB形式に変換するコードを追記したが将来的に見直し予定
 			pic.thumbnail(size, Image.LANCZOS)
 			pic.save(self.picture.path)
 
@@ -46,11 +47,13 @@ class Profile(models.Model):
 		
 
 def create_user_profile(sender, instance, created, **kwargs):
+	"""ユーザープロフィールモデルの作成定義"""
 	if created:
 		Profile.objects.create(user=instance)
 
 
 def save_user_profile(sender, instance, **kwargs):
+	"""ユーザープロフィールモデルの保存定義"""
 	instance.profile.save()
 
 
