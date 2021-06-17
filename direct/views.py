@@ -12,6 +12,7 @@ from direct.models import Message
 
 @login_required
 def inbox(request):
+	"""メッセージBOXの表示"""
 	messages = Message.get_messages(user=request.user)
 	active_direct = None
 	directs = None
@@ -38,6 +39,7 @@ def inbox(request):
 
 @login_required
 def user_search(request):
+	"""ユーザー検索の表示"""
 	query = request.GET.get("q")
 	context = {}
 	
@@ -60,6 +62,7 @@ def user_search(request):
 
 @login_required
 def directs_message(request, username):
+	"""メッセージウィンドウの表示"""
 	user = request.user
 	messages = Message.get_messages(user=user)
 	active_direct = username
@@ -82,6 +85,7 @@ def directs_message(request, username):
 
 @login_required
 def new_conversation(request, username):
+	"""新規メッセージの表示"""
 	from_user = request.user
 	body = ''
 	try:
@@ -95,6 +99,7 @@ def new_conversation(request, username):
 
 @login_required
 def send_direct(request):
+	"""送信メッセージの表示"""
 	from_user = request.user
 	to_user_username = request.POST.get('to_user')
 	body = request.POST.get('body')
@@ -108,6 +113,7 @@ def send_direct(request):
 
 
 def check_directs(request):
+	"""受信メッセージの表示"""
 	directs_count = 0
 	if request.user.is_authenticated:
 		directs_count = Message.objects.filter(user=request.user, is_read=False).count()

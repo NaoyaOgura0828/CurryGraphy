@@ -4,6 +4,7 @@ from django.db.models import Max
 
 
 class Message(models.Model):
+	"""メッセージのモデル"""
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
 	sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_user')
 	recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_user')
@@ -12,6 +13,7 @@ class Message(models.Model):
 	is_read = models.BooleanField(default=False)
 
 	def send_message(from_user, to_user, body):
+		"""送信メッセージのモデル"""
 		sender_message = Message(
 			user=from_user,
 			sender=from_user,
@@ -29,6 +31,7 @@ class Message(models.Model):
 		return sender_message
 
 	def get_messages(user):
+		"""受信メッセージのモデル"""
 		messages = Message.objects.filter(user=user).values('recipient').annotate(last=Max('date')).order_by('-last')
 		users = []
 		for message in messages:

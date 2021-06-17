@@ -7,12 +7,14 @@ from notifications.models import Notification
 
 
 class Comment(models.Model):
+	"""コメントのモデル"""
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	body = models.TextField()
 	date = models.DateTimeField(auto_now_add=True)
 
 	def user_comment_post(sender, instance, *args, **kwargs):
+		"""投稿コメントのモデル"""
 		comment = instance
 		post = comment.post
 		text_preview = comment.body[:90]
@@ -21,6 +23,7 @@ class Comment(models.Model):
 		notify.save()
 
 	def user_del_comment_post(sender, instance, *args, **kwargs):
+		"""投稿コメントの削除モデル"""
 		like = instance
 		post = like.post
 		sender = like.user
