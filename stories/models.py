@@ -11,6 +11,7 @@ def user_directory_path(instance, filename):
 
 
 class Story(models.Model):
+	"""ストーリーのモデル"""
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='story_user')
 	content = models.FileField(upload_to=user_directory_path)
 	caption = models.TextField(max_length=50)
@@ -22,6 +23,7 @@ class Story(models.Model):
 
 
 class StoryStream(models.Model):
+	"""ストーリーの投稿モデル"""
 	following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='story_following')
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	story = models.ManyToManyField(Story, related_name='storiess')
